@@ -1,21 +1,32 @@
+import { ClienteController } from "../controller/ClienteController";
+import { ProdutoController } from "../controller/ProdutoController";
+import { VendaController } from "../controller/VendaController";
+
+const clienteController = new ClienteController();
+const produtoController = new ProdutoController();
+const vendaController = new VendaController();
 
 const router = [
   // GET
-  { method: "GET", path: "/produtos", handler: () => { const mensagem = { mensagem: "GET-PRODUTOS" }; return mensagem } },
-  { method: "GET", path: "/clientes", handler: () => { const mensagem = { mensagem: "GET-CLIENTES" }; return mensagem } },
-  { method: "GET", path: "/vendas", handler: () => { const mensagem = { mensagem: "GET-VENDAS" }; return mensagem } },
+  { method: "GET", path: "/produtos", handler: produtoController.getProduto },
+  { method: "GET", path: "/clientes", handler: clienteController.getCliente },
+  { method: "GET", path: "/vendas", handler: vendaController.getVenda },
+
+  // GET BY ID
+  { method: "GET", path: "/produtos/{id}", handler: produtoController.getProdutoById },
+  { method: "GET", path: "/clientes/{id}", handler: clienteController.getClienteById },
+  { method: "GET", path: "/vendas/{id}", handler: vendaController.getVendaById },
+
   // POST
-  { method: "POST", path: "/produtos", handler: () => { const mensagem = { mensagem: "POST-PRODUTOS" }; return mensagem } },
-  { method: "POST", path: "/clientes", handler: () => { const mensagem = { mensagem: "POST-CLIENTES" }; return mensagem } },
-  { method: "POST", path: "/vendas", handler: () => { const mensagem = { mensagem: "POST-VENDAS" }; return mensagem } },
+  { method: "POST", path: "/produtos/{nome_produto}/{tipo_produto}/{quantidade}", handler: produtoController.postProduto },
+  { method: "POST", path: "/clientes/{nome_cliente}", handler: clienteController.postCliente },
+  { method: "POST", path: "/vendas/{desc_venda}/{id_produto}/{id_cliente}", handler: vendaController.postVenda },
+
   // DELETE
-  { method: "DELETE", path: "/produtos", handler: () => { const mensagem = { mensagem: "DELETE-PRODUTOS" }; return mensagem } },
-  { method: "DELETE", path: "/clientes", handler: () => { const mensagem = { mensagem: "DELETE-CLIENTES" }; return mensagem } },
-  { method: "DELETE", path: "/vendas", handler: () => { const mensagem = { mensagem: "DELETE-VENDAS" }; return mensagem } },
-  // PUT
-  { method: "PUT", path: "/produtos", handler: () => { const mensagem = { mensagem: "PUT-PRODUTOS" }; return mensagem } },
-  { method: "PUT", path: "/clientes", handler: () => { const mensagem = { mensagem: "PUT-CLIENTES" }; return mensagem } },
-  { method: "PUT", path: "/vendas", handler: () => { const mensagem = { mensagem: "PUT-VENDAS" }; return mensagem } },
+  { method: "DELETE", path: "/produtos/{id}", handler: produtoController.deleteProduto },
+  { method: "DELETE", path: "/clientes/{id}", handler: clienteController.deleteCliente },
+  { method: "DELETE", path: "/vendas", handler: vendaController.deleteVenda },
+
 
   // ROTAS NÃO EXISTENTES
   {
