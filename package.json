@@ -6,7 +6,9 @@
   "author": "Frank Renan Taveira Lima",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev ./src/app.ts"
+    "dev": "ts-node-dev ./src/app.ts",
+    "build": "tsc",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "@hapi/hapi": "^20.2.1",
