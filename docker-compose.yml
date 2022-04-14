@@ -3,15 +3,7 @@
 
 version: "3.1"
 
-services:
-  app:
-    build: .
-    command: yarn start
-    ports: 
-      - "3000:3000"
-    volumes: 
-      - .:/usr/app
-      
+services:      
   db:
     image: mysql:8.0
     container_name: banco_produtos_vendas_clientes
@@ -22,6 +14,27 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
-      - .:/db
+      - ./src/database/:/db
     ports:
       - ${MYSQL_LOCAL_PORT}:${MYSQL_DOCKER_PORT}
+    networks:
+      - backend
+
+  api:
+    depends_on:
+      - db
+    build: .
+    command: yarn start
+    env_file: ./.env
+    container_name: api_produtos_vendas_clientes
+    restart: unless-stopped
+    ports:
+      - ${NODE_LOCAL_PORT}:${NODE_DOCKER_PORT}
+    networks:
+      - backend
+ 
+volumes:
+  db:
+ 
+networks:
+  backend:

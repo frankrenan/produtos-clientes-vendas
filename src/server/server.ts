@@ -7,7 +7,7 @@ import { router } from "../route/routes";
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 8000,
-    host: process.env.HOST || 'localhost'
+    // host: process.env.HOST || 'localhost'
   });
 
   server.route(router);
